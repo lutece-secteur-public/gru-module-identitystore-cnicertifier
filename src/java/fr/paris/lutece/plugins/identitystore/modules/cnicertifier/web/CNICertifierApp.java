@@ -33,12 +33,23 @@
  */
 package fr.paris.lutece.plugins.identitystore.modules.cnicertifier.web;
 
+import fr.paris.lutece.plugins.identitystore.modules.cnicertifier.service.ScannerException;
+import fr.paris.lutece.plugins.identitystore.modules.cnicertifier.service.ScannerService;
+import fr.paris.lutece.portal.service.util.AppLogService;
+import fr.paris.lutece.portal.util.mvc.commons.annotations.Action;
 import fr.paris.lutece.portal.web.xpages.XPage;
 import fr.paris.lutece.portal.util.mvc.xpage.MVCApplication;
 import fr.paris.lutece.portal.util.mvc.commons.annotations.View;
 import fr.paris.lutece.portal.util.mvc.xpage.annotations.Controller;
+import fr.paris.lutece.portal.web.upload.MultipartHttpServletRequest;
+import fr.paris.lutece.util.httpaccess.HttpAccessException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import org.apache.commons.fileupload.FileItem;
 
 /**
  * This class provides a simple implementation of an XPage
@@ -48,6 +59,9 @@ public class CNICertifierApp extends MVCApplication
 {
     private static final String TEMPLATE_XPAGE = "/skin/plugins/identitystore/modules/cnicertifier/cnicertifier.html";
     private static final String VIEW_HOME = "home";
+    private static final String ACTION_SCAN = "scan";
+    private static final String PARAMETER_IMAGE = "image";
+    private static final String PARAMETER_FILENAME = "filename";
     
     /**
      * Returns the content of the page cnicertifier. 
@@ -58,5 +72,33 @@ public class CNICertifierApp extends MVCApplication
     public XPage viewHome( HttpServletRequest request )
     {
         return getXPage( TEMPLATE_XPAGE, request.getLocale(  ) );
+    }
+    
+    /**
+     * Scan the uploaded image
+     * @param request The HTTP request
+     * @return The redirected page
+     */
+    @Action( ACTION_SCAN )
+    public XPage doScan( HttpServletRequest request )
+    {
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        
+        FileItem fileItem = multipartRequest.getFile( PARAMETER_IMAGE );
+        Map<String, FileItem> mapFiles = new HashMap<>();
+        mapFiles.put( PARAMETER_IMAGE , fileItem );
+        Map<String , List<String>> mapParams = new HashMap<>();
+        List<String> listParamValues = new ArrayList<>();
+        mapParams.put( PARAMETER_FILENAME, listParamValues );
+        try
+        {
+            ScannerService.scan( mapParams , mapFiles , fileItem.getContentType() );
+        }
+        catch (ScannerException | HttpAccessException ex)
+        {
+            addError( "Error scanning CNI : " + ex.getMessage() );
+            AppLogService.error( "Error scanning CNI : " + ex.getMessage() , ex);
+        }
+        return redirectView( request, VIEW_HOME );
     }
 }

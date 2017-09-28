@@ -36,12 +36,14 @@ package fr.paris.lutece.plugins.identitystore.modules.cnicertifier.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.paris.lutece.plugins.identitystore.modules.cnicertifier.business.CNI;
-import fr.paris.lutece.portal.service.util.AppLogService;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.util.httpaccess.HttpAccess;
 import fr.paris.lutece.util.httpaccess.HttpAccessException;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import org.apache.commons.fileupload.FileItem;
 
 /**
  * ScannerService
@@ -50,41 +52,53 @@ public class ScannerService
 {
 
     private static final String PROPERTY_SCANNER_URL = "identitystore-cnicertifier.scannerUrl";
-
+    private static final String HEADER_CONTENT_TYPE = "Content-Type";
+    
     private static ObjectMapper _mapper = new ObjectMapper();
 
-    public static CNI scan(Map mpaParams, Map mapFileItems) throws ScannerException
+    /**
+     * Scan the CNI
+     *
+     * @param mapParams Parameters
+     * @param mapFileItems Files
+     * @param strContentType The content type of the image
+     * @return The CNI
+     * @throws ScannerException
+     * @throws HttpAccessException
+     */
+    public static CNI scan(Map<String, List<String>> mapParams, Map<String, FileItem> mapFileItems, String strContentType ) throws ScannerException, HttpAccessException
     {
-        CNI cni = null;
+        CNI cni;
         HttpAccess client = new HttpAccess();
         String strURL = AppPropertiesService.getProperty(PROPERTY_SCANNER_URL);
 
-        try
-        {
-            String strResponse = client.doPostMultiPart( strURL, mpaParams, mapFileItems);
-            cni = parse(strResponse);
-        }
-        catch (HttpAccessException ex)
-        {
-            AppLogService.error("ScannerService : error accessing CNI scanner : " + ex.getMessage(), ex);
-        }
+        Map<String,String> mapHeadersRequest = new HashMap<>();
+        mapHeadersRequest.put( HEADER_CONTENT_TYPE, strContentType );
+        String strResponse = client.doPostMultiPart(strURL, mapParams, mapFileItems, null, null, mapHeadersRequest );
+        cni = parse(strResponse);
         return cni;
     }
 
+    /**
+     * Parse the response of the scanner server
+     * @param strJSON The response as JSON
+     * @return The CNI object
+     * @throws ScannerException A scanner exception 
+     */
     public static CNI parse(String strJSON) throws ScannerException
     {
         CNI cni = null;
 
         try
         {
-            JsonNode nodeRoot = _mapper.readTree( strJSON );
+            JsonNode nodeRoot = _mapper.readTree(strJSON);
             JsonNode nodeData = nodeRoot.get("data");
-            String strDataJSON =  nodeData.toString();
-            cni = _mapper.readValue( strDataJSON , CNI.class );
+            String strDataJSON = nodeData.toString();
+            cni = _mapper.readValue(strDataJSON, CNI.class);
         }
         catch (IOException ex)
         {
-            throw new ScannerException( ex.getMessage() );
+            throw new ScannerException(ex.getMessage());
         }
         return cni;
     }
