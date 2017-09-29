@@ -66,15 +66,12 @@ public class ScannerService
      * @throws ScannerException
      * @throws HttpAccessException
      */
-    public static CNI scan(Map<String, List<String>> mapParams, Map<String, FileItem> mapFileItems, String strContentType ) throws ScannerException, HttpAccessException
+    public static CNI scan(Map<String, FileItem> mapFileItems ) throws ScannerException, HttpAccessException
     {
         CNI cni;
         HttpAccess client = new HttpAccess();
         String strURL = AppPropertiesService.getProperty(PROPERTY_SCANNER_URL);
-
-        Map<String,String> mapHeadersRequest = new HashMap<>();
-        mapHeadersRequest.put( HEADER_CONTENT_TYPE, strContentType );
-        String strResponse = client.doPostMultiPart(strURL, mapParams, mapFileItems, null, null, mapHeadersRequest );
+        String strResponse = client.doPostMultiPart(strURL, null, mapFileItems );
         cni = parse(strResponse);
         return cni;
     }

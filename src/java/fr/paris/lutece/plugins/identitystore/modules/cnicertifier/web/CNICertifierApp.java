@@ -87,12 +87,9 @@ public class CNICertifierApp extends MVCApplication
         FileItem fileItem = multipartRequest.getFile( PARAMETER_IMAGE );
         Map<String, FileItem> mapFiles = new HashMap<>();
         mapFiles.put( PARAMETER_IMAGE , fileItem );
-        Map<String , List<String>> mapParams = new HashMap<>();
-        List<String> listParamValues = new ArrayList<>();
-        mapParams.put( PARAMETER_FILENAME, listParamValues );
         try
         {
-            ScannerService.scan( mapParams , mapFiles , fileItem.getContentType() );
+            ScannerService.scan( mapFiles );
         }
         catch (ScannerException | HttpAccessException ex)
         {
