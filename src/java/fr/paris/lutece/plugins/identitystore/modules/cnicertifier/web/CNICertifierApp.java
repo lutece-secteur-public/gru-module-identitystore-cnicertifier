@@ -33,6 +33,7 @@
  */
 package fr.paris.lutece.plugins.identitystore.modules.cnicertifier.web;
 
+import fr.paris.lutece.plugins.identitystore.modules.cnicertifier.business.CNI;
 import fr.paris.lutece.plugins.identitystore.modules.cnicertifier.service.ScannerException;
 import fr.paris.lutece.plugins.identitystore.modules.cnicertifier.service.ScannerService;
 import fr.paris.lutece.portal.service.util.AppLogService;
@@ -43,9 +44,7 @@ import fr.paris.lutece.portal.util.mvc.commons.annotations.View;
 import fr.paris.lutece.portal.util.mvc.xpage.annotations.Controller;
 import fr.paris.lutece.portal.web.upload.MultipartHttpServletRequest;
 import fr.paris.lutece.util.httpaccess.HttpAccessException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -58,10 +57,14 @@ import org.apache.commons.fileupload.FileItem;
 public class CNICertifierApp extends MVCApplication
 {
     private static final String TEMPLATE_XPAGE = "/skin/plugins/identitystore/modules/cnicertifier/cnicertifier.html";
+    private static final String TEMPLATE_CNI = "/skin/plugins/identitystore/modules/cnicertifier/cni.html";
     private static final String VIEW_HOME = "home";
+    private static final String VIEW_CNI = "cni";
     private static final String ACTION_SCAN = "scan";
     private static final String PARAMETER_IMAGE = "image";
-    private static final String PARAMETER_FILENAME = "filename";
+    private static final String MARK_CNI = "cni";
+    
+    private CNI _cni;
     
     /**
      * Returns the content of the page cnicertifier. 
@@ -87,15 +90,32 @@ public class CNICertifierApp extends MVCApplication
         FileItem fileItem = multipartRequest.getFile( PARAMETER_IMAGE );
         Map<String, FileItem> mapFiles = new HashMap<>();
         mapFiles.put( PARAMETER_IMAGE , fileItem );
+        _cni = null;
         try
         {
-            ScannerService.scan( mapFiles );
+           _cni = ScannerService.scan( mapFiles );
         }
         catch (ScannerException | HttpAccessException ex)
         {
             addError( "Error scanning CNI : " + ex.getMessage() );
             AppLogService.error( "Error scanning CNI : " + ex.getMessage() , ex);
+            return redirectView( request, VIEW_HOME );
         }
-        return redirectView( request, VIEW_HOME );
+        return redirectView( request, VIEW_CNI );
     }
+
+    /**
+     * View CNI
+     * @param request The HTTP request
+     * @return The page
+     */
+    @View( VIEW_CNI )
+    public XPage viewCNI( HttpServletRequest request )
+    {
+        Map<String,Object> model = getModel();
+        model.put( MARK_CNI, _cni );
+        return getXPage( TEMPLATE_CNI, request.getLocale(  ) , model );
+    }
+    
+
 }
