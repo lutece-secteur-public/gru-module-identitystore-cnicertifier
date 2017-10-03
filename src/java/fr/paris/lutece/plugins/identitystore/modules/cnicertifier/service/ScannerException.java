@@ -41,6 +41,6 @@ public class ScannerException extends Exception
 {
     public ScannerException( String strMessage )
     {
-        super( strMessage);
+        super( strMessage );
     }
 }

@@ -42,75 +42,30 @@ import org.junit.Test;
  */
 public class ScannerServiceTest
 {
-    private static final String JSON = "{" +
-"  \"data\": {" +
-"    \"mrz\": {" +
-"      \"id\": \"ID\"," +
-"      \"country\": \"FRA\"," +
-"      \"last_name\": \"ALOIS\"," +
-"      \"adm_code\": \"<<<<<<\"," +
-"      \"emit_year\": 13," +
-"      \"emit_month\": 3," +
-"      \"adm_code2\": \"753\"," +
-"      \"emit_code\": 819," +
-"      \"checksum_emit\": 2," +
-"      \"first_name\": \"PAUL\"," +
-"      \"birth_year\": 80," +
-"      \"birth_month\": 1," +
-"      \"birth_day\": 21," +
-"      \"checksum_birth\": 0," +
-"      \"sex\": \"M\"," +
-"      \"checksum\": 2" +
-"    }," +
-"    \"last_name_mrz\": \"ALOIS\"," +
-"    \"last_name_ocr\": \"ALOIS\"," +
-"    \"last_name_corrected\": \"ALOIS\"," +
-"    \"first_name_mrz\": \"PAUL\"," +
-"    \"first_name_ocr\": \"PAUL\"," +
-"    \"first_name_corrected\": \"PAUL\"," +
-"    \"birth_date_mrz\": \"21180\"," +
-"    \"birth_date_ocr\": \"21011980\"," +
-"    \"birth_place_ocr\": \"PARIS\"," +
-"    \"birth_place_corrected\": \"PARIS\"," +
-"    \"birth_place_exists\": true," +
-"    \"birth_place_similar\": [" +
-"      [" +
-"        \"PARIS\"," +
-"        100" +
-"      ]," +
-"      [" +
-"        \"PARDIES\"," +
-"        83" +
-"      ]," +
-"      [" +
-"        \"PARISOT\"," +
-"        83" +
-"      ]," +
-"      [" +
-"        \"AGRIS\"," +
-"        80" +
-"      ]," +
-"      [" +
-"        \"ARBIS\"," +
-"        80" +
-"      ]" +
-"    ]" +
-"  }," +
-"  \"image_path\": \"uploads/47052cc1-84b8-40cf-a288-a161bf012513.jpg\"," +
-"  \"excel_data_path\": \"uploads/exported_data.xls\"" +
-"}";
+    private static final String JSON = "{" + "  \"data\": {" + "    \"mrz\": {" + "      \"id\": \"ID\"," + "      \"country\": \"FRA\","
+            + "      \"last_name\": \"ALOIS\"," + "      \"adm_code\": \"<<<<<<\"," + "      \"emit_year\": 13," + "      \"emit_month\": 3,"
+            + "      \"adm_code2\": \"753\"," + "      \"emit_code\": 819," + "      \"checksum_emit\": 2," + "      \"first_name\": \"PAUL\","
+            + "      \"birth_year\": 80," + "      \"birth_month\": 1," + "      \"birth_day\": 21," + "      \"checksum_birth\": 0," + "      \"sex\": \"M\","
+            + "      \"checksum\": 2" + "    }," + "    \"last_name_mrz\": \"ALOIS\"," + "    \"last_name_ocr\": \"ALOIS\","
+            + "    \"last_name_corrected\": \"ALOIS\"," + "    \"first_name_mrz\": \"PAUL\"," + "    \"first_name_ocr\": \"PAUL\","
+            + "    \"first_name_corrected\": \"PAUL\"," + "    \"birth_date_mrz\": \"21180\"," + "    \"birth_date_ocr\": \"21011980\","
+            + "    \"birth_place_ocr\": \"PARIS\"," + "    \"birth_place_corrected\": \"PARIS\"," + "    \"birth_place_exists\": true,"
+            + "    \"birth_place_similar\": [" + "      [" + "        \"PARIS\"," + "        100" + "      ]," + "      [" + "        \"PARDIES\","
+            + "        83" + "      ]," + "      [" + "        \"PARISOT\"," + "        83" + "      ]," + "      [" + "        \"AGRIS\"," + "        80"
+            + "      ]," + "      [" + "        \"ARBIS\"," + "        80" + "      ]" + "    ]" + "  },"
+            + "  \"image_path\": \"uploads/47052cc1-84b8-40cf-a288-a161bf012513.jpg\"," + "  \"excel_data_path\": \"uploads/exported_data.xls\"" + "}";
 
     /**
      * Test of parse method, of class ScannerService.
+     * 
      * @throws java.lang.Exception
      */
     @Test
-    public void testParse() throws Exception
+    public void testParse( ) throws Exception
     {
-        System.out.println("parse");
+        System.out.println( "parse" );
         CNI result = ScannerService.parse( JSON );
 
-
     }
-    
+
 }

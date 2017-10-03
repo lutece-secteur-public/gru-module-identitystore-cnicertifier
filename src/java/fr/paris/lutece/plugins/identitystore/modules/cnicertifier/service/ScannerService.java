@@ -53,49 +53,55 @@ public class ScannerService
 
     private static final String PROPERTY_SCANNER_URL = "identitystore-cnicertifier.scannerUrl";
     private static final String HEADER_CONTENT_TYPE = "Content-Type";
-    
-    private static ObjectMapper _mapper = new ObjectMapper();
+
+    private static ObjectMapper _mapper = new ObjectMapper( );
 
     /**
      * Scan the CNI
      *
-     * @param mapParams Parameters
-     * @param mapFileItems Files
-     * @param strContentType The content type of the image
+     * @param mapParams
+     *            Parameters
+     * @param mapFileItems
+     *            Files
+     * @param strContentType
+     *            The content type of the image
      * @return The CNI
      * @throws ScannerException
      * @throws HttpAccessException
      */
-    public static CNI scan(Map<String, FileItem> mapFileItems ) throws ScannerException, HttpAccessException
+    public static CNI scan( Map<String, FileItem> mapFileItems ) throws ScannerException, HttpAccessException
     {
         CNI cni;
-        HttpAccess client = new HttpAccess();
-        String strURL = AppPropertiesService.getProperty(PROPERTY_SCANNER_URL);
-        String strResponse = client.doPostMultiPart(strURL, null, mapFileItems );
-        cni = parse(strResponse);
+        HttpAccess client = new HttpAccess( );
+        String strURL = AppPropertiesService.getProperty( PROPERTY_SCANNER_URL );
+        String strResponse = client.doPostMultiPart( strURL, null, mapFileItems );
+        cni = parse( strResponse );
         return cni;
     }
 
     /**
      * Parse the response of the scanner server
-     * @param strJSON The response as JSON
+     * 
+     * @param strJSON
+     *            The response as JSON
      * @return The CNI object
-     * @throws ScannerException A scanner exception 
+     * @throws ScannerException
+     *             A scanner exception
      */
-    public static CNI parse(String strJSON) throws ScannerException
+    public static CNI parse( String strJSON ) throws ScannerException
     {
         CNI cni = null;
 
         try
         {
-            JsonNode nodeRoot = _mapper.readTree(strJSON);
-            JsonNode nodeData = nodeRoot.get("data");
-            String strDataJSON = nodeData.toString();
-            cni = _mapper.readValue(strDataJSON, CNI.class);
+            JsonNode nodeRoot = _mapper.readTree( strJSON );
+            JsonNode nodeData = nodeRoot.get( "data" );
+            String strDataJSON = nodeData.toString( );
+            cni = _mapper.readValue( strDataJSON, CNI.class );
         }
-        catch (IOException ex)
+        catch( IOException ex )
         {
-            throw new ScannerException(ex.getMessage());
+            throw new ScannerException( ex.getMessage( ) );
         }
         return cni;
     }

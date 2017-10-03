@@ -1,18 +1,26 @@
 <@row>
 
-<ul>
-    <li>#i18n{module.identitystore.cnicertifier.cni.firstname} : ${cni.mrz.firstName}</li>
-    <li>#i18n{module.identitystore.cnicertifier.cni.lastname} : ${cni.mrz.lastName}</li>
-    <li>#i18n{module.identitystore.cnicertifier.cni.birthdate} : ${cni.mrz.birthDay}/${cni.mrz.birthMonth}/${cni.mrz.birthYear}</li>
-    <li>#i18n{module.identitystore.cnicertifier.cni.birthdate} OCR : ${cni.birthDateOcr}</li>
-    <li>#i18n{module.identitystore.cnicertifier.cni.birthdate} MRZ : ${cni.birthDateMrz}</li>
-    <li>#i18n{module.identitystore.cnicertifier.cni.numcni} : ${cni.mrz.id}</li>
-    <li>
-        #i18n{module.identitystore.cnicertifier.cni.birthplace} OCR : ${cni.birthPlaceOcr}
-        <#if cni.birthPlaceExists><span class="badge badge-info">Valide</span></#if>
-    </li>
-    <li>#i18n{module.identitystore.cnicertifier.cni.birthplace} corrected : ${cni.birthPlaceCorrected}</li>
-    
-    <li>#i18n{module.identitystore.cnicertifier.cni.sex} : ${cni.mrz.sex}</li>
-</ul>
+#i18n{module.identitystore.cnicertifier.cni.intro}
+<form action="jsp/site/Portal.jsp" >
+    <input type="hidden" name="page" value="cnicertifier" />
+    <ul>
+        <li>#i18n{module.identitystore.cnicertifier.cni.firstname} : ${cni.mrz.firstName}</li>
+        <li>#i18n{module.identitystore.cnicertifier.cni.lastname} : ${cni.mrz.lastName}</li>
+        <li>#i18n{module.identitystore.cnicertifier.cni.birthdate} : ${cni.mrz.birthDay}/${cni.mrz.birthMonth}/${cni.mrz.birthYear}</li>
+        <li>#i18n{module.identitystore.cnicertifier.cni.birthdate} OCR : ${cni.birthDateOcr}</li>
+        <li>#i18n{module.identitystore.cnicertifier.cni.birthdate} MRZ : ${cni.birthDateMrz}</li>
+        <li>#i18n{module.identitystore.cnicertifier.cni.numcni} : ${cni.mrz.id}</li>
+        <li>
+            #i18n{module.identitystore.cnicertifier.cni.birthplace} OCR : ${cni.birthPlaceOcr}
+            <#if cni.birthPlaceExists><span class="badge badge-success">Valide</span></#if>
+        </li>
+        <li>#i18n{module.identitystore.cnicertifier.cni.birthplace} corrected : ${cni.birthPlace}</li>
+
+        <li>#i18n{module.identitystore.cnicertifier.cni.sex} : ${cni.mrz.sex}</li>
+    </ul>
+
+    <button class="btn btn-primary" type="submit" name="action_certify">
+        #i18n{module.identitystore.cnicertifier.cni.buttonCertify} 
+    </button>
+</form>
 </@row>

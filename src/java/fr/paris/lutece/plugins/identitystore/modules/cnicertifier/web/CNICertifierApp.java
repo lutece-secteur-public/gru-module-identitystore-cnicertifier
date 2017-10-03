@@ -34,8 +34,12 @@
 package fr.paris.lutece.plugins.identitystore.modules.cnicertifier.web;
 
 import fr.paris.lutece.plugins.identitystore.modules.cnicertifier.business.CNI;
+import fr.paris.lutece.plugins.identitystore.modules.cnicertifier.service.CNICertifierService;
 import fr.paris.lutece.plugins.identitystore.modules.cnicertifier.service.ScannerException;
 import fr.paris.lutece.plugins.identitystore.modules.cnicertifier.service.ScannerService;
+import fr.paris.lutece.portal.service.security.LuteceUser;
+import fr.paris.lutece.portal.service.security.SecurityService;
+import fr.paris.lutece.portal.service.security.UserNotSignedException;
 import fr.paris.lutece.portal.service.util.AppLogService;
 import fr.paris.lutece.portal.util.mvc.commons.annotations.Action;
 import fr.paris.lutece.portal.web.xpages.XPage;
@@ -53,7 +57,7 @@ import org.apache.commons.fileupload.FileItem;
 /**
  * This class provides a simple implementation of an XPage
  */
-@Controller( xpageName = "cnicertifier" , pageTitleI18nKey = "module.identitystore.cnicertifier.xpage.cnicertifier.pageTitle" , pagePathI18nKey = "module.identitystore.cnicertifier.xpage.cnicertifier.pagePathLabel" )
+@Controller( xpageName = "cnicertifier", pageTitleI18nKey = "module.identitystore.cnicertifier.xpage.cnicertifier.pageTitle", pagePathI18nKey = "module.identitystore.cnicertifier.xpage.cnicertifier.pagePathLabel" )
 public class CNICertifierApp extends MVCApplication
 {
     private static final String TEMPLATE_XPAGE = "/skin/plugins/identitystore/modules/cnicertifier/cnicertifier.html";
@@ -61,44 +65,51 @@ public class CNICertifierApp extends MVCApplication
     private static final String VIEW_HOME = "home";
     private static final String VIEW_CNI = "cni";
     private static final String ACTION_SCAN = "scan";
+    private static final String ACTION_CERTIFY = "certify";
     private static final String PARAMETER_IMAGE = "image";
     private static final String MARK_CNI = "cni";
-    
+
+    private static CNICertifierService _certifierService = new CNICertifierService( );
+
     private CNI _cni;
-    
+
     /**
-     * Returns the content of the page cnicertifier. 
-     * @param request The HTTP request
+     * Returns the content of the page cnicertifier.
+     * 
+     * @param request
+     *            The HTTP request
      * @return The view
      */
-    @View( value = VIEW_HOME , defaultView = true )
+    @View( value = VIEW_HOME, defaultView = true )
     public XPage viewHome( HttpServletRequest request )
     {
-        return getXPage( TEMPLATE_XPAGE, request.getLocale(  ) );
+        return getXPage( TEMPLATE_XPAGE, request.getLocale( ) );
     }
-    
+
     /**
      * Scan the uploaded image
-     * @param request The HTTP request
+     * 
+     * @param request
+     *            The HTTP request
      * @return The redirected page
      */
     @Action( ACTION_SCAN )
     public XPage doScan( HttpServletRequest request )
     {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-        
+
         FileItem fileItem = multipartRequest.getFile( PARAMETER_IMAGE );
-        Map<String, FileItem> mapFiles = new HashMap<>();
-        mapFiles.put( PARAMETER_IMAGE , fileItem );
+        Map<String, FileItem> mapFiles = new HashMap<>( );
+        mapFiles.put( PARAMETER_IMAGE, fileItem );
         _cni = null;
         try
         {
-           _cni = ScannerService.scan( mapFiles );
+            _cni = ScannerService.scan( mapFiles );
         }
-        catch (ScannerException | HttpAccessException ex)
+        catch( ScannerException | HttpAccessException ex )
         {
-            addError( "Error scanning CNI : " + ex.getMessage() );
-            AppLogService.error( "Error scanning CNI : " + ex.getMessage() , ex);
+            addError( "Error scanning CNI : " + ex.getMessage( ) );
+            AppLogService.error( "Error scanning CNI : " + ex.getMessage( ), ex );
             return redirectView( request, VIEW_HOME );
         }
         return redirectView( request, VIEW_CNI );
@@ -106,16 +117,39 @@ public class CNICertifierApp extends MVCApplication
 
     /**
      * View CNI
-     * @param request The HTTP request
+     * 
+     * @param request
+     *            The HTTP request
      * @return The page
      */
     @View( VIEW_CNI )
     public XPage viewCNI( HttpServletRequest request )
     {
-        Map<String,Object> model = getModel();
-        model.put( MARK_CNI, _cni );
-        return getXPage( TEMPLATE_CNI, request.getLocale(  ) , model );
+        if ( _cni != null )
+        {
+            Map<String, Object> model = getModel( );
+            model.put( MARK_CNI, _cni );
+            return getXPage( TEMPLATE_CNI, request.getLocale( ), model );
+        }
+        return redirectView( request, VIEW_HOME );
     }
-    
 
+    @Action( ACTION_CERTIFY )
+    public XPage doCertify( HttpServletRequest request ) throws UserNotSignedException
+    {
+        LuteceUser user = checkUser( request );
+        _certifierService.certify( user, _cni );
+        addInfo( "Certify successfull" ); // FIXME
+        return redirectView( request, VIEW_HOME );
+    }
+
+    private LuteceUser checkUser( HttpServletRequest request ) throws UserNotSignedException
+    {
+        LuteceUser user = SecurityService.getInstance( ).getRegisteredUser( request );
+        if ( user == null )
+        {
+            throw new UserNotSignedException( );
+        }
+        return user;
+    }
 }

@@ -5,5 +5,43 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" >
 
 
+    <!-- Certifier -->
+    <bean id="identitystore-cnicertifier.certifier" class="fr.paris.lutece.plugins.identitystore.modules.cnicertifier.service.CNICertifier" >
+        <constructor-arg type="java.lang.String" value = "cnicertifier"/>
+        <property name="name" value="CNI Certifier" />
+        <property name="description" value="Certificateur d'attributs d'état civil à partir d'une CNI" />
+        <property name="certificateLevel" value="2" />
+        <property name="expirationDelay" value="-1" />
+        <property name="iconUrl" value="images/admin/skin/plugins/identitystore/modules/fccertifier/franceconnect.png" />
+        <property name="certifiableAttributesList">
+            <list>
+                <value>gender</value>
+                <value>first_name</value>
+                <value>family_name</value>
+                <value>birthplace</value>
+                <value>birthdate</value>
+                <value>birthcountry</value>
+            </list>
+        </property>
+        <property name="idDemandType" value="402" />
+        <property name="idCloseCrmStatus" value="1" />
+        <property name="idCloseDemandStatus" value="1" />
+        <property name="demandPrefix" value="CNI" />
+        <property name="notificationService">
+            <ref bean="identitystore-grucertifier.lib-notifygru.notificationService"/>
+        </property>
+    </bean>
+
+
+     <!-- IdentityStore -->
+    <bean id="identitystore-cnicertifier.httpTransport" class="fr.paris.lutece.plugins.identitystore.web.rs.service.IdentityTransportRest">
+        <property name="IdentityStoreEndPoint">
+            <value>http://localhost:8080/lutece/rest/identitystore</value>
+        </property>
+    </bean>       
+    <bean id="identitystore-cnicertifier.identitystore.service" class="fr.paris.lutece.plugins.identitystore.web.service.IdentityService">
+        <constructor-arg ref="identitystore-cnicertifier.httpTransport"/>
+    </bean>
+    
 
 </beans>
