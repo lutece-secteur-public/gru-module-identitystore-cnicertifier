@@ -40,8 +40,6 @@ import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.util.httpaccess.HttpAccess;
 import fr.paris.lutece.util.httpaccess.HttpAccessException;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import org.apache.commons.fileupload.FileItem;
 
@@ -52,19 +50,14 @@ public class ScannerService
 {
 
     private static final String PROPERTY_SCANNER_URL = "identitystore-cnicertifier.scannerUrl";
-    private static final String HEADER_CONTENT_TYPE = "Content-Type";
 
     private static ObjectMapper _mapper = new ObjectMapper( );
 
     /**
      * Scan the CNI
      *
-     * @param mapParams
-     *            Parameters
      * @param mapFileItems
      *            Files
-     * @param strContentType
-     *            The content type of the image
      * @return The CNI
      * @throws ScannerException
      * @throws HttpAccessException

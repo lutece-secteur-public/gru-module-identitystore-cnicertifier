@@ -78,7 +78,6 @@ public class CNICertifierService
         addAttribute( mapAttributes, "family_name", cni.getLastName( ) );
         addAttribute( mapAttributes, "birthdate", cni.getBirthDate( ) );
         addAttribute( mapAttributes, "birthplace", cni.getBirthPlace( ) );
-        addAttribute( mapAttributes, "birthcountry", cni.getBirthCountry( ) );
 
         identity.setAttributes( mapAttributes );
         identityChange.setIdentity( identity );

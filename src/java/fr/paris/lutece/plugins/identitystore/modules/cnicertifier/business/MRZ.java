@@ -36,13 +36,14 @@ package fr.paris.lutece.plugins.identitystore.modules.cnicertifier.business;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 
 /**
  * MRZ
  */
 
 @JsonIgnoreProperties( ignoreUnknown = true )
-public class MRZ
+public class MRZ  implements Serializable
 {
     // Variables declarations
     private String _strId;

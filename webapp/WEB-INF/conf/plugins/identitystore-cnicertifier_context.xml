@@ -12,7 +12,7 @@
         <property name="description" value="Certificateur d'attributs d'état civil à partir d'une CNI" />
         <property name="certificateLevel" value="2" />
         <property name="expirationDelay" value="-1" />
-        <property name="iconUrl" value="images/admin/skin/plugins/identitystore/modules/fccertifier/franceconnect.png" />
+        <property name="iconUrl" value="images/admin/skin/plugins/identitystore/modules/cnicertifier/cnicertifier.png" />
         <property name="certifiableAttributesList">
             <list>
                 <value>gender</value>
@@ -20,7 +20,6 @@
                 <value>family_name</value>
                 <value>birthplace</value>
                 <value>birthdate</value>
-                <value>birthcountry</value>
             </list>
         </property>
         <property name="idDemandType" value="402" />

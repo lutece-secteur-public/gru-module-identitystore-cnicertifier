@@ -35,6 +35,7 @@
 package fr.paris.lutece.plugins.identitystore.modules.cnicertifier.service;
 
 import fr.paris.lutece.plugins.identitystore.modules.cnicertifier.business.CNI;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
@@ -64,8 +65,14 @@ public class ScannerServiceTest
     public void testParse( ) throws Exception
     {
         System.out.println( "parse" );
-        CNI result = ScannerService.parse( JSON );
+        CNI cni = ScannerService.parse( JSON );
 
+        assertEquals( cni.getFirstName() , "PAUL" );
+        assertEquals( cni.getLastName() , "ALOIS" );
+        assertEquals( cni.getBirthDate() , "21/01/80" );
+        assertEquals( cni.getBirthPlace() , "PARIS" );
+        assertEquals( cni.getGender() , "2" );
+        assertEquals( cni.getNumeroCNI() , "130375300819" );
     }
 
 }

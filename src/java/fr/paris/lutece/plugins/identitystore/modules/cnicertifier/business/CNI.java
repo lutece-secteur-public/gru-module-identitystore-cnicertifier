@@ -36,13 +36,14 @@ package fr.paris.lutece.plugins.identitystore.modules.cnicertifier.business;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 
 /**
  * Cni
  */
 
 @JsonIgnoreProperties( ignoreUnknown = true )
-public class CNI
+public class CNI implements Serializable
 {
     // Variables declarations
     private String _strLastNameMrz;
@@ -330,12 +331,12 @@ public class CNI
     {
         if ( _mrz.getSex( ).equals( "M" ) )
         {
-            return "2";
+            return "1";
         }
         else
             if ( _mrz.getSex( ).equals( "F" ) )
             {
-                return "1";
+                return "2";
             }
         return "0";
     }
@@ -347,7 +348,7 @@ public class CNI
      */
     public String getBirthDate( )
     {
-        return String.format( "%02d/%02d/%d", _mrz.getBirthDay( ), _mrz.getBirthMonth( ), _mrz.getBirthYear( ) );
+        return String.format( "%02d/%02d/%s", _mrz.getBirthDay( ), _mrz.getBirthMonth( ), _strBirthDateOcr.substring( 4, 8 ) );
     }
 
     /**
@@ -358,5 +359,23 @@ public class CNI
     public String getBirthCountry( )
     {
         return _mrz.getCountry( );
+    }
+    
+    /**
+     * Returns the CNI number
+     * @return the CNI number
+     */
+    public String getNumeroCNI( )
+    {
+        return String.format( "%02d%02d%s%05d" , _mrz.getEmitYear(), _mrz.getEmitMonth(), _mrz.getAdmCode2(), _mrz.getEmitCode() );
+    }
+    
+    /**
+     * Returns the expiration date
+     * @return the expiration date 
+     */
+    public String getDateExpiration( )
+    {
+        return String.format( "01/%02d/20%02d" , _mrz.getEmitMonth(), _mrz.getEmitYear() + 10 );
     }
 }

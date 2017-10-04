@@ -1,26 +1,27 @@
 <@row>
-<div class="upload-controls-fadeout" ng-show="!loading">
-    <div class="col-sm-6">
-        <@messages errors=errors />
-        <h3>Scanner une nouvelle image</h3><br>
-        <ul>
-            <li>avec le <strong>moins d'angle</strong> possible, le téléphone bien au dessus de la carte</li>
-            <li>sur un <strong>fond uni</strong>, idéalement blanc ou de couleur claire</li>
-            <li>sans être <strong>trop zoomée</strong> sur la carte (laisser une certaine marge entre le bord de la carte
-                et le bord de la photo)</li>
-        </ul>
+<div class="col-md-6 col-md-offset-3">
+    <@messages errors=errors />
+    <h3>Envoyer l'image de votre carte d'identité</h3><br>
+    <ul>
+        <li>avec le <strong>moins d'angle</strong> possible, le t&eacute;l&eacute;phone bien au dessus de la carte</li>
+        <li>sur un <strong>fond uni</strong>, id&eacute;alement blanc ou de couleur claire</li>
+        <li>sans &ecirc;tre <strong>trop zoom&eacute;e</strong> sur la carte (laisser une certaine marge entre le bord de la carte
+            et le bord de la photo)</li>
+    </ul>
+    <br>
+    <form action="jsp/site/Portal.jsp" enctype="multipart/form-data" method="POST">
+        <input type="hidden" name="page" value="cnicertifier" />
+        <input type="hidden" name="action" value="scan" />
+        <div class="fileUpload">
+            <span>S&eacute;lectionner l'image </span>
+            <input type="file" name="image" class="upload" ng-file-select="onFileSelect($files)"/>
+        </div>
         <br>
-        <form action="jsp/site/Portal.jsp" enctype="multipart/form-data" method="POST">
-            <input type="hidden" name="page" value="cnicertifier" />
-            <input type="hidden" name="action" value="scan" />
-            <div class="fileUpload btn btn-primary">
-                <span>Sélectionner l'image ou utiliser la caméra du téléphone</span>
-                <input type="file" name="image" class="upload" ng-file-select="onFileSelect($files)"/>
-            </div>
-                <button type="submit">Soumettre</button>
-        </form>
-    </div>
+        <br>
+        <button class="btn btn-primary" type="submit">
+            <span class="fa fa-cogs"> </span> Envoyer</button>
+    </form>
 </div>
 
+
 </@row>
-  

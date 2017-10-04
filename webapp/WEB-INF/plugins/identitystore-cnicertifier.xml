@@ -10,7 +10,7 @@
     <description>module.identitystore.cnicertifier.module.description</description>
     <provider>module.identitystore.cnicertifier.module.provider</provider>
     <provider-url>http://fr.lutece.paris.fr</provider-url>
-    <icon-url>images/admin/skin/feature_default_icon.png</icon-url>
+    <icon-url>images/admin/skin/plugins/identitystore/modules/cnicertifier/identitystore.png</icon-url>
     <copyright>Copyright (c) Mairie de Paris</copyright>
     <db-pool-required>1</db-pool-required>
     
