@@ -1,29 +1,72 @@
 <@row>
 <div class="col-md-6 col-md-offset-3">
     <h3>#i18n{module.identitystore.cnicertifier.cni.intro}</h3>
-    <form action="jsp/site/Portal.jsp" >
-        <input type="hidden" name="page" value="cnicertifier" />
-        <ul>
-            <li>#i18n{module.identitystore.cnicertifier.cni.firstname} : <b> ${cni.firstName}</b></li>
-            <li>#i18n{module.identitystore.cnicertifier.cni.lastname} : <b> ${cni.lastName}</b></li>
-            <li>#i18n{module.identitystore.cnicertifier.cni.birthdate} : <b>${cni.birthDate}</b></li>
-            <li>
-                #i18n{module.identitystore.cnicertifier.cni.birthplace} OCR : <b>${cni.birthPlaceOcr}</b>
-                <#if cni.birthPlaceExists>
-                <span class="badge badge-success">Valide</span>
-                <#else>
-                <span class="badge badge-danger">Non reconnu</span>
-                </#if>
-            </li>
-            <li>#i18n{module.identitystore.cnicertifier.cni.birthplace} corrig&eacute; : <b>${cni.birthPlace}</b></li>
-            <li>#i18n{module.identitystore.cnicertifier.cni.sex} : <b>${cni.mrz.sex}</b></li>
-            <li>#i18n{module.identitystore.cnicertifier.cni.numcni} : <b>${cni.numeroCNI}</b></li>
-            <li>#i18n{module.identitystore.cnicertifier.cni.expired} : <b>${cni.dateExpiration}</b></li>
-        </ul>
-        <br>
-        <button class="btn btn-primary" type="submit" name="action_certify">
-            #i18n{module.identitystore.cnicertifier.cni.buttonCertify} 
-        </button>
+    <form action="jsp/site/Portal.jsp" class="form-horizontal">
+        <input type="hidden" name="page" value="cnicertifier">
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-4 control-label">#i18n{module.identitystore.cnicertifier.cni.firstname}</label>
+          <div class="col-xs-12 col-sm-8">
+            <p class="form-control-static"><strong> ${cni.firstName}</strong> </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-4 control-label">#i18n{module.identitystore.cnicertifier.cni.lastname}</label>
+          <div class="col-xs-12 col-sm-8">
+            <p class="form-control-static"><strong> ${cni.lastName}</strong> </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-4 control-label">#i18n{module.identitystore.cnicertifier.cni.birthdate}</label>
+          <div class="col-xs-12 col-sm-8">
+            <p class="form-control-static"><strong> ${cni.birthDate}</strong></p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-4 control-label">  #i18n{module.identitystore.cnicertifier.cni.birthplace} OCR</label>
+          <div class="col-xs-12 col-sm-8">
+            <p class="form-control-static">
+              <strong> ${cni.birthPlaceOcr}</strong>
+               <#if cni.birthPlaceExists>
+               <span class="label label-success">Valide</span>
+               <#else>
+               <span class="label label-danger">Non reconnu</span>
+               </#if>
+            </p>
+          </div>
+        </div>
+         <#if ! cni.birthPlaceExists>
+          <div class="form-group">
+            <label class="col-xs-12 col-sm-4 control-label">#i18n{module.identitystore.cnicertifier.cni.birthplace} corrig&eacute;</label>
+            <div class="col-xs-12 col-sm-8">
+              <p class="form-control-static"><strong> ${cni.birthPlace}</strong></p>
+            </div>
+          </div>
+         </#if>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-4 control-label">#i18n{module.identitystore.cnicertifier.cni.sex}</label>
+          <div class="col-xs-12 col-sm-8">
+            <p class="form-control-static"><strong>${cni.mrz.sex}</strong> </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-4 control-label">#i18n{module.identitystore.cnicertifier.cni.numcni}</label>
+          <div class="col-xs-12 col-sm-8">
+            <p class="form-control-static"><strong>${cni.numeroCNI}</strong> </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-4 control-label">#i18n{module.identitystore.cnicertifier.cni.expired}</label>
+          <div class="col-xs-12 col-sm-8">
+            <p class="form-control-static"><strong>${cni.dateExpiration}</strong> </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-xs-12 col-sm-8 col-sm-offset-4">
+            <button class="btn btn-primary" type="submit" name="action_certify">
+              #i18n{module.identitystore.cnicertifier.cni.buttonCertify}
+            </button>
+          </div>
+      </div>
     </form>
 </div>
 </@row>
