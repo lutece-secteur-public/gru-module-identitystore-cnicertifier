@@ -67,12 +67,12 @@ public class ScannerServiceTest
         System.out.println( "parse" );
         CNI cni = ScannerService.parse( JSON );
 
-        assertEquals( cni.getFirstName() , "PAUL" );
-        assertEquals( cni.getLastName() , "ALOIS" );
-        assertEquals( cni.getBirthDate() , "21/01/80" );
-        assertEquals( cni.getBirthPlace() , "PARIS" );
-        assertEquals( cni.getGender() , "2" );
-        assertEquals( cni.getNumeroCNI() , "130375300819" );
+        assertEquals( cni.getFirstName( ), "PAUL" );
+        assertEquals( cni.getLastName( ), "ALOIS" );
+        assertEquals( cni.getBirthDate( ), "21/01/80" );
+        assertEquals( cni.getBirthPlace( ), "PARIS" );
+        assertEquals( cni.getGender( ), "2" );
+        assertEquals( cni.getNumeroCNI( ), "130375300819" );
     }
 
 }

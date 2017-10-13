@@ -360,22 +360,24 @@ public class CNI implements Serializable
     {
         return _mrz.getCountry( );
     }
-    
+
     /**
      * Returns the CNI number
+     * 
      * @return the CNI number
      */
     public String getNumeroCNI( )
     {
-        return String.format( "%02d%02d%s%05d" , _mrz.getEmitYear(), _mrz.getEmitMonth(), _mrz.getAdmCode2(), _mrz.getEmitCode() );
+        return String.format( "%02d%02d%s%05d", _mrz.getEmitYear( ), _mrz.getEmitMonth( ), _mrz.getAdmCode2( ), _mrz.getEmitCode( ) );
     }
-    
+
     /**
      * Returns the expiration date
-     * @return the expiration date 
+     * 
+     * @return the expiration date
      */
     public String getDateExpiration( )
     {
-        return String.format( "01/%02d/20%02d" , _mrz.getEmitMonth(), _mrz.getEmitYear() + 10 );
+        return String.format( "01/%02d/20%02d", _mrz.getEmitMonth( ), _mrz.getEmitYear( ) + 10 );
     }
 }

@@ -43,7 +43,7 @@ import java.io.Serializable;
  */
 
 @JsonIgnoreProperties( ignoreUnknown = true )
-public class MRZ  implements Serializable
+public class MRZ implements Serializable
 {
     // Variables declarations
     private String _strId;

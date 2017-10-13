@@ -37,6 +37,7 @@ import fr.paris.lutece.plugins.identitystore.modules.cnicertifier.business.CNI;
 import fr.paris.lutece.plugins.identitystore.modules.cnicertifier.service.CNICertifierService;
 import fr.paris.lutece.plugins.identitystore.modules.cnicertifier.service.ScannerException;
 import fr.paris.lutece.plugins.identitystore.modules.cnicertifier.service.ScannerService;
+import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.security.LuteceUser;
 import fr.paris.lutece.portal.service.security.SecurityService;
 import fr.paris.lutece.portal.service.security.UserNotSignedException;
@@ -46,9 +47,11 @@ import fr.paris.lutece.portal.web.xpages.XPage;
 import fr.paris.lutece.portal.util.mvc.xpage.MVCApplication;
 import fr.paris.lutece.portal.util.mvc.commons.annotations.View;
 import fr.paris.lutece.portal.util.mvc.xpage.annotations.Controller;
+import fr.paris.lutece.portal.web.l10n.LocaleService;
 import fr.paris.lutece.portal.web.upload.MultipartHttpServletRequest;
 import fr.paris.lutece.util.httpaccess.HttpAccessException;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -68,6 +71,8 @@ public class CNICertifierApp extends MVCApplication
     private static final String ACTION_CERTIFY = "certify";
     private static final String PARAMETER_IMAGE = "image";
     private static final String MARK_CNI = "cni";
+    private static final String MESSAGE_NO_FILE_SELECTED = "module.identitystore.cnicertifier.message.noFileSelected";
+    private static final String MESSAGE_SCAN_FAILED = "module.identitystore.cnicertifier.message.scanFailed";
 
     private static CNICertifierService _certifierService = new CNICertifierService( );
 
@@ -99,6 +104,12 @@ public class CNICertifierApp extends MVCApplication
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 
         FileItem fileItem = multipartRequest.getFile( PARAMETER_IMAGE );
+        if ( fileItem.getName( ).equals( "" ) )
+        {
+            String strError = I18nService.getLocalizedString( MESSAGE_NO_FILE_SELECTED, LocaleService.getDefault( ) );
+            addError( strError );
+            return redirectView( request, VIEW_HOME );
+        }
         Map<String, FileItem> mapFiles = new HashMap<>( );
         mapFiles.put( PARAMETER_IMAGE, fileItem );
         _cni = null;
@@ -108,7 +119,8 @@ public class CNICertifierApp extends MVCApplication
         }
         catch( ScannerException | HttpAccessException ex )
         {
-            addError( "Error scanning CNI : " + ex.getMessage( ) );
+            String strError = I18nService.getLocalizedString( MESSAGE_SCAN_FAILED, LocaleService.getDefault( ) );
+            addError( strError );
             AppLogService.error( "Error scanning CNI : " + ex.getMessage( ), ex );
             return redirectView( request, VIEW_HOME );
         }

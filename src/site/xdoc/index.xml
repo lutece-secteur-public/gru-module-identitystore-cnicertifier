@@ -1,23 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document>
     <properties>
-        <title>Plugin identitystore-cnicertifier</title>
+        <title>Module IdentityStore CNI Certifier</title>
     </properties>
     <body>
-        <section name="Plugin identitystore-cnicertifier">
-            <!--
+        <section name="Module IdentityStore CNI Certifier">
             <p>
-                <img src="images/identitystore-cnicertifier.png" />
+                <img src="images/cni.png" />
             </p>
-            -->
             <subsection name="Introduction">
-                <p></p>
+                <p>
+                    Ce module permet de certifier les attributs d'une identité stockée dans l'IDStore à
+                    partir de la lecture des informations d'une carte d'identité.
+                </p>
+                <p>
+                    Ce module s'appuie sur le serveur de lecture de carte <a href="https://github.com/mairie-de-paris/franceocr">FranceOCR</a>
+                </p>
+                <p>
+                    Les attributs pouvant être certifiés sont :
+                    <ul>
+                        <li>le nom de naissance</li>
+                        <li>la liste des prénoms</li>
+                        <li>le genre</li>
+                        <li>la date de naissance</li>
+                        <li>le lieu de naissance</li>
+                    </ul>
+                </p>
             </subsection>
             <subsection name="Configuration">
-                <p></p>
+                <p>
+                    Configurer l'adresse du serveur FranceOCR dans le fichier identitystore-cnicertifier.properties :
+                </p>
+                <p>
+<pre>                    
+ identitystore-cnicertifier.scannerUrl=http://host:port/cni/scan
+</pre>                    
+                </p>
+                <p>
+                    Configurer de l'accès à IdentityStore dans le fichier identitystore-cnicertifier_context.xml :
+                    <ul>
+                        <li>le mode d'accès (Transport HTTP)</li>
+                        <li>l'adresse du serveur IdentityStore (EndPoint)</li>
+                    </ul>
+                </p>
             </subsection>
             <subsection name="Usage">
-                <p></p>
+                <p>
+                    Le certificateur est une XPage accessible à l'adresse suivante :
+                 </p>
+                <p>
+<pre>                    
+http://host:port/context/jsp/site/Portal.jsp?page=cnicertifier
+</pre>                    
+                </p>
             </subsection>
         </section>
     </body>

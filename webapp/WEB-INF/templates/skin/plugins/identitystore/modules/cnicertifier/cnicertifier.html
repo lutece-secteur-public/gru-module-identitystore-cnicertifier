@@ -2,15 +2,14 @@
   <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
   <@row>
     <div class="col-xs-12 col-sm-12">
-      <@messages errors=errors />
-      <h3>Envoyer l'image de votre carte d'identité</h3>
+      <h3>#i18n{module.identitystore.cnicertifier.cnicertifier.title}</h3>
     </div>
   </@row>
   <@row>
     <div id="spin" class="col-xs-1 col-sm-12 text-center">
       <div class="well well-lg">
         <i class="fa fa-cog fa-spin fa-5x fa-fw"></i>
-        <p class="lead">Scan en cours...</span>
+        <p class="lead">#i18n{module.identitystore.cnicertifier.cnicertifier.scanInProgress}</span>
       </div>
     </div>
   </@row>
@@ -18,27 +17,28 @@
     <@row>
       <div class="col-xs-12 col-sm-12">
         <ul>
-          <li>avec le <strong>moins d'angle</strong> possible, le t&eacute;l&eacute;phone bien au dessus de la carte</li>
-          <li>sur un <strong>fond uni</strong>, id&eacute;alement blanc ou de couleur claire</li>
-          <li>sans &ecirc;tre <strong>trop zoom&eacute;e</strong> sur la carte (laisser une certaine marge entre le bord de la carte
-              et le bord de la photo)</li>
+          <li>#i18n{module.identitystore.cnicertifier.cnicertifier.requirement1}</li>
+          <li>#i18n{module.identitystore.cnicertifier.cnicertifier.requirement2}</li>
+          <li>#i18n{module.identitystore.cnicertifier.cnicertifier.requirement3}</li>
+          <li>#i18n{module.identitystore.cnicertifier.cnicertifier.requirement4}</li>
         </ul>
       </div>
     </@row>
     <@row>
       <div class="col-xs-1 col-sm-12">
+        <@messages errors=errors />
         <form action="jsp/site/Portal.jsp" enctype="multipart/form-data" method="POST" class="form">
           <input type="hidden" name="page" value="cnicertifier">
           <input type="hidden" name="action" value="scan">
           <div class="form-group">
             <div class="fileUpload">
-                <span>S&eacute;lectionner l'image </span>
+                <span>#i18n{module.identitystore.cnicertifier.cnicertifier.selectImage}S&eacute;lectionner l'image </span>
                 <input type="file" name="image" class="upload" ng-file-select="onFileSelect($files)"/>
             </div>
           </div>
           <div class="form-group">
             <button id="send" class="btn btn-primary" type="submit">
-              <span class="fa fa-cogs"> </span> Envoyer
+              <span class="fa fa-cogs"> </span> #i18n{module.identitystore.cnicertifier.cnicertifier.buttonScan}
             </button>
           </div>
 
