@@ -39,11 +39,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 
 /**
- * MRZ
+ * MRZData
  */
 
 @JsonIgnoreProperties( ignoreUnknown = true )
-public class MRZ implements Serializable
+public class MRZData implements Serializable
 {
     // Variables declarations
     private String _strId;

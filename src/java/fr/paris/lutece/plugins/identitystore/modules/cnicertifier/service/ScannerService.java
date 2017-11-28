@@ -48,6 +48,53 @@ import org.apache.commons.fileupload.FileItem;
  */
 public class ScannerService
 {
+    /** The extraction of the document within the image failed (extract_document() function failed).*/
+    private static final String ERROR_DOCUMENT_EXTRACTION_FAILED = "DOCUMENT_EXTRACTION_FAILED";
+
+    /** The improvement of the extracted image failed (improve_image() function failed). */
+    private static final String ERROR_IMAGE_IMPROVEMENT_FAILED = "IMAGE_IMPROVEMENT_FAILED";
+
+    /** The image provided is too small, its smallest side is lower than 900 pixels. The image must be at least 900x900 pixels. */
+    private static final String ERROR_IMG_SIZE_TOO_SMALL = "IMG_SIZE_TOO_SMALL";
+
+    /** OCR data and MRZ data don't match (same_ocr_mrz() function returned False).*/
+    private static final String ERROR_INCONSISTENT_OCR_MRZ = "INCONSISTENT_OCR_MRZ";
+
+    /** The checksum of the date of birth extracted from the MRZ (characters from 28 to 33 of the second line) is not valid. */
+    private static final String ERROR_INVALID_BIRTHDATE_CHECKSUM = "INVALID_BIRTHDATE_CHECKSUM";
+
+    /** The checksum of the first 12 characters of the second line of the MRZ is not valid. */
+    private static final String ERROR_INVALID_EMIT_CHECKSUM = "INVALID_EMIT_CHECKSUM";
+
+    /** The type of the file provided is neither jpg (JPEG) nor png (PNG) nor pdf (PDF), and is therefore not supported. */
+    private static final String ERROR_INVALID_FILE_TYPE = "INVALID_FILE_TYPE";
+
+    /** The checksum of the first line and the first 35 characters of the second line is not valid. */
+    private static final String ERROR_INVALID_GLOBAL_CHECKSUM = "INVALID_GLOBAL_CHECKSUM";
+
+    /** The first line (line 0) of the MRZ is not 36 characters long as expected. */
+    private static final String ERROR_INVALID_LINE0_LENGTH = "INVALID_LINE0_LENGTH";
+
+    /** The second line (line 1) of the MRZ is not 36 characters long as expected. */
+    private static final String ERROR_INVALID_LINE1_LENGTH = "INVALID_LINE1_LENGTH";
+
+    /** The first 2 characters of the first line of the MRZ are not ID as expected. */
+    private static final String ERROR_INVALID_MRZ_ID = "INVALID_MRZ_ID";
+
+    /** The MRZ data extracted does not contain 2 lines as expected. */
+    private static final String ERROR_INVALID_MRZ_LINES_COUNT = "INVALID_MRZ_LINES_COUNT";
+
+    /** The sex character extracted from the MRZ is neither M (male) nor F (female). */
+    private static final String ERROR_INVALID_MRZ_SEX = "INVALID_MRZ_SEX";
+
+    /** The image file is missing in the image field of the HTTP POST request.*/
+    private static final String ERROR_MISSING_IMAGE_FILE = "MISSING_IMAGE_FILE";
+
+    /** The extraction of the MRZ failed (cni_mrz_extract() function failed). */
+    private static final String ERROR_MRZ_EXTRACTION_FAILED = "MRZ_EXTRACTION_FAILED";
+
+    /** The location of the different zones in the document failed (cni_locate_zone() function failed).*/
+    private static final String ERROR_ZONES_LOCATION_FAILED = "ZONES_LOCATION_FAILED";
 
     private static final String PROPERTY_SCANNER_URL = "identitystore-cnicertifier.scannerUrl";
 

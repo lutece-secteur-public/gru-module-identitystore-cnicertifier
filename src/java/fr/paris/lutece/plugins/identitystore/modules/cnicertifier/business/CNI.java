@@ -57,7 +57,7 @@ public class CNI implements Serializable
     private String _strBirthPlaceOcr;
     private String _strBirthPlaceCorrected;
     private boolean _bBirthPlaceExists;
-    private MRZ _mrz;
+    private MRZData _mrz;
 
     /**
      * Returns the LastNameMrz
@@ -306,7 +306,7 @@ public class CNI implements Serializable
      * 
      * @return The Mrz
      */
-    public MRZ getMrz( )
+    public MRZData getMrz( )
     {
         return _mrz;
     }
@@ -317,7 +317,7 @@ public class CNI implements Serializable
      * @param mrz
      *            The Mrz
      */
-    public void setMrz( MRZ mrz )
+    public void setMrz( MRZData mrz )
     {
         _mrz = mrz;
     }
