@@ -25,27 +25,16 @@
           <label class="col-xs-12 col-sm-4 control-label">  #i18n{module.identitystore.cnicertifier.cni.birthplace} OCR</label>
           <div class="col-xs-12 col-sm-8">
             <p class="form-control-static">
-              <strong> ${cni.birthPlaceOcr}</strong>
-               <#if cni.birthPlaceExists>
+              <strong> ${cni.birthPlace}</strong>
                <span class="label label-success">Valide</span>
-               <#else>
                <span class="label label-danger">Non reconnu</span>
-               </#if>
             </p>
           </div>
         </div>
-         <#if ! cni.birthPlaceExists>
-          <div class="form-group">
-            <label class="col-xs-12 col-sm-4 control-label">#i18n{module.identitystore.cnicertifier.cni.birthplace} corrig&eacute;</label>
-            <div class="col-xs-12 col-sm-8">
-              <p class="form-control-static"><strong> ${cni.birthPlace}</strong></p>
-            </div>
-          </div>
-         </#if>
         <div class="form-group">
           <label class="col-xs-12 col-sm-4 control-label">#i18n{module.identitystore.cnicertifier.cni.sex}</label>
           <div class="col-xs-12 col-sm-8">
-            <p class="form-control-static"><strong>${cni.mrz.sex}</strong> </p>
+            <p class="form-control-static"><strong>${cni.scan.mrz.sex}</strong> </p>
           </div>
         </div>
         <div class="form-group">
