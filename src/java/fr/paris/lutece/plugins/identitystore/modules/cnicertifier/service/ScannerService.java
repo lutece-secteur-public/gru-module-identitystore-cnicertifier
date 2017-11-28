@@ -36,6 +36,7 @@ package fr.paris.lutece.plugins.identitystore.modules.cnicertifier.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.paris.lutece.plugins.identitystore.modules.cnicertifier.business.CNI;
+import fr.paris.lutece.plugins.identitystore.modules.cnicertifier.business.ScanOutput;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.util.httpaccess.HttpAccess;
 import fr.paris.lutece.util.httpaccess.HttpAccessException;
@@ -111,7 +112,7 @@ public class ScannerService
      */
     public static CNI scan( Map<String, FileItem> mapFileItems ) throws ScannerException, HttpAccessException
     {
-        CNI cni;
+        CNI cni = null;
         HttpAccess client = new HttpAccess( );
         String strURL = AppPropertiesService.getProperty( PROPERTY_SCANNER_URL );
         String strResponse = client.doPostMultiPart( strURL, null, mapFileItems );
@@ -137,7 +138,8 @@ public class ScannerService
             JsonNode nodeRoot = _mapper.readTree( strJSON );
             JsonNode nodeData = nodeRoot.get( "data" );
             String strDataJSON = nodeData.toString( );
-            cni = _mapper.readValue( strDataJSON, CNI.class );
+            ScanOutput scan = _mapper.readValue( strDataJSON, ScanOutput.class );
+            cni = new CNI( scan );
         }
         catch( IOException ex )
         {

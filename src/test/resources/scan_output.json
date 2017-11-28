@@ -1,0 +1,40 @@
+{
+  "data": {
+    "mrz": {
+      "adm_code": "<<<<<<",
+      "adm_code2": "753",
+      "birth_day": 21,
+      "birth_month": 1,
+      "birth_year": 80,
+      "checksum": 2,
+      "checksum_birth": 0,
+      "checksum_emission": 2,
+      "country": "FRA",
+      "emission_code": 819,
+      "emission_month": 3,
+      "emission_year": 13,
+      "first_name": "PAUL",
+      "id": "ID",
+      "last_name": "ALOIS",
+      "sex": "M"
+    },
+    "ocr": {
+      "birth_date": "21011980",
+      "birth_place": "PARIS",
+      "first_name": "PAUL",
+      "last_name": "ALOIS"
+    },
+    "validated": {
+      "birth_date": "21011980",
+      "birth_place": "PARIS",
+      "birth_place_exists": true,
+      "birth_place_similar": [
+        null
+      ],
+      "first_name": "PAUL",
+      "last_name": "ALOIS"
+    }
+  },
+  "excel_path": "string",
+  "image_path": "string"
+}

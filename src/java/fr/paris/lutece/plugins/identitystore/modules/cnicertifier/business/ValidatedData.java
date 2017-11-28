@@ -33,12 +33,16 @@
  */
 package fr.paris.lutece.plugins.identitystore.modules.cnicertifier.business;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * ValidatedData
  */
-public class ValidatedData
+@JsonIgnoreProperties( ignoreUnknown = true )
+public class ValidatedData implements Serializable
 {
     // Variables declarations 
 
@@ -64,6 +68,7 @@ public class ValidatedData
      *
      * @param strFirstName The FirstName
      */
+    @JsonProperty( "first_name" )
     public void setFirstName( String strFirstName )
     {
         _strFirstName = strFirstName;
@@ -84,6 +89,7 @@ public class ValidatedData
      *
      * @param strLastName The LastName
      */
+    @JsonProperty( "last_name" )
     public void setLastName( String strLastName )
     {
         _strLastName = strLastName;
@@ -104,6 +110,7 @@ public class ValidatedData
      *
      * @param strBirthDate The BirthDate
      */
+    @JsonProperty( "birth_date" )
     public void setBirthDate( String strBirthDate )
     {
         _strBirthDate = strBirthDate;
@@ -124,48 +131,12 @@ public class ValidatedData
      *
      * @param strBirthPlace	The BirthPlace
      */
+    @JsonProperty( "birth_place" )
     public void setBirthPlace( String strBirthPlace )
     {
         _strBirthPlace = strBirthPlace;
     }
+    
+    
 
-    /**
-     * Returns the BirthPlaceExists
-     *
-     * @return The BirthPlaceExists
-     */
-    public boolean getBirthPlaceExists()
-    {
-        return _bBirthPlaceExists;
-    }
-
-    /**
-     * Sets the BirthPlaceExists
-     *
-     * @param bBirthPlaceExists The BirthPlaceExists
-     */
-    public void setBirthPlaceExists( boolean bBirthPlaceExists )
-    {
-        _bBirthPlaceExists = bBirthPlaceExists;
-    }
-
-    /**
-     * Returns the BirthPlaceSimilar
-     *
-     * @return The BirthPlaceSimilar
-     */
-    public List getBirthPlaceSimilar()
-    {
-        return _listBirthPlaceSimilar;
-    }
-
-    /**
-     * Sets the BirthPlaceSimilar
-     *
-     * @param listBirthPlaceSimilar The BirthPlaceSimilar
-     */
-    public void setBirthPlaceSimilar( List listBirthPlaceSimilar )
-    {
-        _listBirthPlaceSimilar = listBirthPlaceSimilar;
-    }
 }

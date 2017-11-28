@@ -165,7 +165,7 @@ public class MRZData implements Serializable
      * @param nEmitYear
      *            The EmitYear
      */
-    @JsonProperty( "emit_year" )
+    @JsonProperty( "emission_year" )
     public void setEmitYear( int nEmitYear )
     {
         _nEmitYear = nEmitYear;
@@ -187,7 +187,7 @@ public class MRZData implements Serializable
      * @param nEmitMonth
      *            The EmitMonth
      */
-    @JsonProperty( "emit_month" )
+    @JsonProperty( "emission_month" )
     public void setEmitMonth( int nEmitMonth )
     {
         _nEmitMonth = nEmitMonth;
@@ -231,7 +231,7 @@ public class MRZData implements Serializable
      * @param nEmitCode
      *            The EmitCode
      */
-    @JsonProperty( "emit_code" )
+    @JsonProperty( "emission_code" )
     public void setEmitCode( int nEmitCode )
     {
         _nEmitCode = nEmitCode;
@@ -253,7 +253,7 @@ public class MRZData implements Serializable
      * @param nChecksumEmit
      *            The ChecksumEmit
      */
-    @JsonProperty( "checksum_emit" )
+    @JsonProperty( "checksum_emission" )
     public void setChecksumEmit( int nChecksumEmit )
     {
         _nChecksumEmit = nChecksumEmit;

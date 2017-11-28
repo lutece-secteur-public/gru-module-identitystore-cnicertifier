@@ -103,4 +103,6 @@ public class ScanOutput implements Serializable
         {
             _validated = validated;
         }
+        
+
 }

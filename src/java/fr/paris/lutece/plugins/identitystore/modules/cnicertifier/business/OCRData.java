@@ -35,10 +35,15 @@
 
 package fr.paris.lutece.plugins.identitystore.modules.cnicertifier.business;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
+
 /**
  * OCRData
  */
-public class OCRData 
+@JsonIgnoreProperties( ignoreUnknown = true )
+public class OCRData implements Serializable 
 {
     // Variables declarations 
 
@@ -62,6 +67,7 @@ public class OCRData
      *
      * @param strFirstName The FirstName
      */
+    @JsonProperty( "first_name" )
     public void setFirstName( String strFirstName )
     {
         _strFirstName = strFirstName;
@@ -82,6 +88,7 @@ public class OCRData
      *
      * @param strLastName The LastName
      */
+    @JsonProperty( "last_name" )
     public void setLastName( String strLastName )
     {
         _strLastName = strLastName;
@@ -102,6 +109,7 @@ public class OCRData
      *
      * @param strBirthDate The BirthDate
      */
+    @JsonProperty( "birth_date" )
     public void setBirthDate( String strBirthDate )
     {
         _strBirthDate = strBirthDate;
@@ -122,6 +130,7 @@ public class OCRData
      *
      * @param strBirthPlace	The BirthPlace
      */
+    @JsonProperty( "birth_place" )
     public void setBirthPlace( String strBirthPlace )
     {
         _strBirthPlace = strBirthPlace;
