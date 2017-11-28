@@ -55,10 +55,10 @@ public class ScannerServiceTest
     public void testParse( ) throws Exception
     {
         System.out.println( "parse" );
-        
-        String strJSON = Utils.getFileContent( "scan_output.json");
+
+        String strJSON = Utils.getFileContent( "scan_output.json" );
         System.out.println( strJSON );
-       
+
         CNI cni = ScannerService.parse( strJSON );
 
         assertEquals( cni.getFirstName( ), "PAUL" );

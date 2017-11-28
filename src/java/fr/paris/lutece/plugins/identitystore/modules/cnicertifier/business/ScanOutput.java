@@ -32,7 +32,6 @@
  * License 1.0
  */
 
-
 package fr.paris.lutece.plugins.identitystore.modules.cnicertifier.business;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -44,65 +43,72 @@ import java.io.Serializable;
 @JsonIgnoreProperties( ignoreUnknown = true )
 public class ScanOutput implements Serializable
 {
-        // Variables declarations 
-        private MRZData _mrz;
-        private OCRData _ocr;
-        private ValidatedData _validated;
-    
-    
-       /**
-        * Returns the Mrz
-        * @return The Mrz
-        */ 
-        public MRZData getMrz()
-        {
-            return _mrz;
-        }
-    
-       /**
-        * Sets the Mrz
-        * @param mrz The Mrz
-        */ 
-        public void setMrz( MRZData mrz )
-        {
-            _mrz = mrz;
-        }
-    
-       /**
-        * Returns the Ocr
-        * @return The Ocr
-        */ 
-        public OCRData getOcr()
-        {
-            return _ocr;
-        }
-    
-       /**
-        * Sets the Ocr
-        * @param ocr The Ocr
-        */ 
-        public void setOcr( OCRData ocr )
-        {
-            _ocr = ocr;
-        }
-    
-       /**
-        * Returns the Validated
-        * @return The Validated
-        */ 
-        public ValidatedData getValidated()
-        {
-            return _validated;
-        }
-    
-       /**
-        * Sets the Validated
-        * @param validated The Validated
-        */ 
-        public void setValidated( ValidatedData validated )
-        {
-            _validated = validated;
-        }
-        
+    // Variables declarations
+    private MRZData _mrz;
+    private OCRData _ocr;
+    private ValidatedData _validated;
+
+    /**
+     * Returns the Mrz
+     * 
+     * @return The Mrz
+     */
+    public MRZData getMrz( )
+    {
+        return _mrz;
+    }
+
+    /**
+     * Sets the Mrz
+     * 
+     * @param mrz
+     *            The Mrz
+     */
+    public void setMrz( MRZData mrz )
+    {
+        _mrz = mrz;
+    }
+
+    /**
+     * Returns the Ocr
+     * 
+     * @return The Ocr
+     */
+    public OCRData getOcr( )
+    {
+        return _ocr;
+    }
+
+    /**
+     * Sets the Ocr
+     * 
+     * @param ocr
+     *            The Ocr
+     */
+    public void setOcr( OCRData ocr )
+    {
+        _ocr = ocr;
+    }
+
+    /**
+     * Returns the Validated
+     * 
+     * @return The Validated
+     */
+    public ValidatedData getValidated( )
+    {
+        return _validated;
+    }
+
+    /**
+     * Sets the Validated
+     * 
+     * @param validated
+     *            The Validated
+     */
+    public void setValidated( ValidatedData validated )
+    {
+        _validated = validated;
+    }
 
 }

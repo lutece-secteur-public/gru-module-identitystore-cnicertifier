@@ -41,13 +41,12 @@ package fr.paris.lutece.plugins.identitystore.modules.cnicertifier.business;
 public class CNI
 {
     private ScanOutput _scan;
-    
+
     public CNI( ScanOutput scan )
     {
         _scan = scan;
     }
-    
-    
+
     /**
      * Returns the LastName
      * 
@@ -55,9 +54,8 @@ public class CNI
      */
     public String getLastName( )
     {
-        return _scan.getValidated().getLastName();
+        return _scan.getValidated( ).getLastName( );
     }
-
 
     /**
      * Returns the FirstName
@@ -66,9 +64,8 @@ public class CNI
      */
     public String getFirstName( )
     {
-        return _scan.getValidated().getFirstName();
+        return _scan.getValidated( ).getFirstName( );
     }
-
 
     /**
      * Returns the Birth Place
@@ -77,9 +74,8 @@ public class CNI
      */
     public String getBirthPlace( )
     {
-        return _scan.getValidated().getBirthPlace();
+        return _scan.getValidated( ).getBirthPlace( );
     }
-
 
     /**
      * Gender conversion
@@ -88,12 +84,12 @@ public class CNI
      */
     public String getGender( )
     {
-        if ( _scan.getMrz().getSex( ).equals( "M" ) )
+        if ( _scan.getMrz( ).getSex( ).equals( "M" ) )
         {
             return "1";
         }
         else
-            if ( _scan.getMrz().getSex( ).equals( "F" ) )
+            if ( _scan.getMrz( ).getSex( ).equals( "F" ) )
             {
                 return "2";
             }
@@ -107,9 +103,9 @@ public class CNI
      */
     public String getBirthDate( )
     {
-        return String.format( "%02d/%02d/%s", _scan.getMrz().getBirthDay( ), _scan.getMrz().getBirthMonth( ), _scan.getOcr().getBirthDate().substring( 4, 8 ) );
+        return String.format( "%02d/%02d/%s", _scan.getMrz( ).getBirthDay( ), _scan.getMrz( ).getBirthMonth( ), _scan.getOcr( ).getBirthDate( )
+                .substring( 4, 8 ) );
     }
-
 
     /**
      * Returns the CNI number
@@ -118,7 +114,8 @@ public class CNI
      */
     public String getNumeroCNI( )
     {
-        return String.format( "%02d%02d%s%05d", _scan.getMrz().getEmitYear( ), _scan.getMrz().getEmitMonth( ), _scan.getMrz().getAdmCode2( ), _scan.getMrz().getEmitCode( ) );
+        return String.format( "%02d%02d%s%05d", _scan.getMrz( ).getEmitYear( ), _scan.getMrz( ).getEmitMonth( ), _scan.getMrz( ).getAdmCode2( ), _scan.getMrz( )
+                .getEmitCode( ) );
     }
 
     /**
@@ -128,6 +125,6 @@ public class CNI
      */
     public String getDateExpiration( )
     {
-        return String.format( "01/%02d/20%02d", _scan.getMrz().getEmitMonth( ), _scan.getMrz().getEmitYear( ) + 10 );
+        return String.format( "01/%02d/20%02d", _scan.getMrz( ).getEmitMonth( ), _scan.getMrz( ).getEmitYear( ) + 10 );
     }
 }

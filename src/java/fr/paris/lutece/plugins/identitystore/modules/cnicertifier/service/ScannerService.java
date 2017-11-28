@@ -49,7 +49,7 @@ import org.apache.commons.fileupload.FileItem;
  */
 public class ScannerService
 {
-    /** The extraction of the document within the image failed (extract_document() function failed).*/
+    /** The extraction of the document within the image failed (extract_document() function failed). */
     private static final String ERROR_DOCUMENT_EXTRACTION_FAILED = "DOCUMENT_EXTRACTION_FAILED";
 
     /** The improvement of the extracted image failed (improve_image() function failed). */
@@ -58,7 +58,7 @@ public class ScannerService
     /** The image provided is too small, its smallest side is lower than 900 pixels. The image must be at least 900x900 pixels. */
     private static final String ERROR_IMG_SIZE_TOO_SMALL = "IMG_SIZE_TOO_SMALL";
 
-    /** OCR data and MRZ data don't match (same_ocr_mrz() function returned False).*/
+    /** OCR data and MRZ data don't match (same_ocr_mrz() function returned False). */
     private static final String ERROR_INCONSISTENT_OCR_MRZ = "INCONSISTENT_OCR_MRZ";
 
     /** The checksum of the date of birth extracted from the MRZ (characters from 28 to 33 of the second line) is not valid. */
@@ -88,13 +88,13 @@ public class ScannerService
     /** The sex character extracted from the MRZ is neither M (male) nor F (female). */
     private static final String ERROR_INVALID_MRZ_SEX = "INVALID_MRZ_SEX";
 
-    /** The image file is missing in the image field of the HTTP POST request.*/
+    /** The image file is missing in the image field of the HTTP POST request. */
     private static final String ERROR_MISSING_IMAGE_FILE = "MISSING_IMAGE_FILE";
 
     /** The extraction of the MRZ failed (cni_mrz_extract() function failed). */
     private static final String ERROR_MRZ_EXTRACTION_FAILED = "MRZ_EXTRACTION_FAILED";
 
-    /** The location of the different zones in the document failed (cni_locate_zone() function failed).*/
+    /** The location of the different zones in the document failed (cni_locate_zone() function failed). */
     private static final String ERROR_ZONES_LOCATION_FAILED = "ZONES_LOCATION_FAILED";
 
     private static final String PROPERTY_SCANNER_URL = "identitystore-cnicertifier.scannerUrl";

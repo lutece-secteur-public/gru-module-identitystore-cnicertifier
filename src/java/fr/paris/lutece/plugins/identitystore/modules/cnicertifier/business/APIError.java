@@ -38,7 +38,7 @@ package fr.paris.lutece.plugins.identitystore.modules.cnicertifier.business;
  */
 public class APIError
 {
-    // Variables declarations 
+    // Variables declarations
 
     private String _strCode;
     private String _strException;
@@ -49,7 +49,7 @@ public class APIError
      *
      * @return The Code
      */
-    public String getCode()
+    public String getCode( )
     {
         return _strCode;
     }
@@ -57,7 +57,8 @@ public class APIError
     /**
      * Sets the Code
      *
-     * @param strCode The Code
+     * @param strCode
+     *            The Code
      */
     public void setCode( String strCode )
     {
@@ -69,7 +70,7 @@ public class APIError
      *
      * @return The Exception
      */
-    public String getException()
+    public String getException( )
     {
         return _strException;
     }
@@ -77,7 +78,8 @@ public class APIError
     /**
      * Sets the Exception
      *
-     * @param strException The Exception
+     * @param strException
+     *            The Exception
      */
     public void setException( String strException )
     {
@@ -89,7 +91,7 @@ public class APIError
      *
      * @return The Message
      */
-    public String getMessage()
+    public String getMessage( )
     {
         return _strMessage;
     }
@@ -97,7 +99,8 @@ public class APIError
     /**
      * Sets the Message
      *
-     * @param strMessage The Message
+     * @param strMessage
+     *            The Message
      */
     public void setMessage( String strMessage )
     {

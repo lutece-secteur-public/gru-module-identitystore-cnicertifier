@@ -32,7 +32,6 @@
  * License 1.0
  */
 
-
 package fr.paris.lutece.plugins.identitystore.modules.cnicertifier.business;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -43,9 +42,9 @@ import java.io.Serializable;
  * OCRData
  */
 @JsonIgnoreProperties( ignoreUnknown = true )
-public class OCRData implements Serializable 
+public class OCRData implements Serializable
 {
-    // Variables declarations 
+    // Variables declarations
 
     private String _strFirstName;
     private String _strLastName;
@@ -57,7 +56,7 @@ public class OCRData implements Serializable
      *
      * @return The FirstName
      */
-    public String getFirstName()
+    public String getFirstName( )
     {
         return _strFirstName;
     }
@@ -65,7 +64,8 @@ public class OCRData implements Serializable
     /**
      * Sets the FirstName
      *
-     * @param strFirstName The FirstName
+     * @param strFirstName
+     *            The FirstName
      */
     @JsonProperty( "first_name" )
     public void setFirstName( String strFirstName )
@@ -78,7 +78,7 @@ public class OCRData implements Serializable
      *
      * @return The LastName
      */
-    public String getLastName()
+    public String getLastName( )
     {
         return _strLastName;
     }
@@ -86,7 +86,8 @@ public class OCRData implements Serializable
     /**
      * Sets the LastName
      *
-     * @param strLastName The LastName
+     * @param strLastName
+     *            The LastName
      */
     @JsonProperty( "last_name" )
     public void setLastName( String strLastName )
@@ -99,7 +100,7 @@ public class OCRData implements Serializable
      *
      * @return The BirthDate
      */
-    public String getBirthDate()
+    public String getBirthDate( )
     {
         return _strBirthDate;
     }
@@ -107,7 +108,8 @@ public class OCRData implements Serializable
     /**
      * Sets the BirthDate
      *
-     * @param strBirthDate The BirthDate
+     * @param strBirthDate
+     *            The BirthDate
      */
     @JsonProperty( "birth_date" )
     public void setBirthDate( String strBirthDate )
@@ -120,7 +122,7 @@ public class OCRData implements Serializable
      *
      * @return The BirthPlace
      */
-    public String getBirthPlace()
+    public String getBirthPlace( )
     {
         return _strBirthPlace;
     }
@@ -128,13 +130,13 @@ public class OCRData implements Serializable
     /**
      * Sets the BirthPlace
      *
-     * @param strBirthPlace	The BirthPlace
+     * @param strBirthPlace
+     *            The BirthPlace
      */
     @JsonProperty( "birth_place" )
     public void setBirthPlace( String strBirthPlace )
     {
         _strBirthPlace = strBirthPlace;
     }
-
 
 }
