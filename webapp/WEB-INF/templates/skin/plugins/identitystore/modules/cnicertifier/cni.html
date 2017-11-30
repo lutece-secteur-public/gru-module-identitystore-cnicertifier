@@ -34,7 +34,9 @@
         <div class="form-group">
           <label class="col-xs-12 col-sm-4 control-label">#i18n{module.identitystore.cnicertifier.cni.sex}</label>
           <div class="col-xs-12 col-sm-8">
-            <p class="form-control-static"><strong>${cni.scan.mrz.sex}</strong> </p>
+            <p class="form-control-static"><strong>
+                    <#if cni.gender == "1">Masculin<#else>F&eacute;minin</#if></strong> 
+            </p>
           </div>
         </div>
         <div class="form-group">

@@ -49,7 +49,7 @@ public class ScannerResponseStatusValidator implements ResponseStatusValidator
     @Override
     public boolean validate( int nStatus )
     {
-        return ( nStatus == 200) || ( nStatus == 400) || ( nStatus == 422) || ( nStatus == 500);
+        return ( nStatus == 200) || ( nStatus == 400) || ( nStatus == 422);
     }
 
 }
