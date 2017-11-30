@@ -117,12 +117,28 @@ public class CNICertifierApp extends MVCApplication
         {
             _cni = ScannerService.scan( mapFiles );
         }
-        catch( ScannerException | HttpAccessException ex )
+        catch( ScannerException ex )
+        {
+            String strError;
+            if( ex.getCode() != null )
+            {
+                strError = ex.getUserMessage();
+            }
+            else
+            {
+                strError = I18nService.getLocalizedString( MESSAGE_SCAN_FAILED, LocaleService.getDefault( ) );
+            }
+            addError( strError );
+            AppLogService.error( "Error scanning CNI : " + ex.getMessage( ), ex );
+            return redirectView( request, VIEW_HOME );
+        }
+        catch( HttpAccessException ex  )
         {
             String strError = I18nService.getLocalizedString( MESSAGE_SCAN_FAILED, LocaleService.getDefault( ) );
             addError( strError );
             AppLogService.error( "Error scanning CNI : " + ex.getMessage( ), ex );
             return redirectView( request, VIEW_HOME );
+            
         }
         return redirectView( request, VIEW_CNI );
     }
@@ -164,4 +180,5 @@ public class CNICertifierApp extends MVCApplication
         }
         return user;
     }
-}
+
+}   

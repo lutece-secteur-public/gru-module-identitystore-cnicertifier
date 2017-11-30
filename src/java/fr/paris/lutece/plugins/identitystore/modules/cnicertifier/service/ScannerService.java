@@ -37,10 +37,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.paris.lutece.plugins.identitystore.modules.cnicertifier.business.CNI;
 import fr.paris.lutece.plugins.identitystore.modules.cnicertifier.business.ScanOutput;
+import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.util.httpaccess.HttpAccess;
 import fr.paris.lutece.util.httpaccess.HttpAccessException;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Map;
 import org.apache.commons.fileupload.FileItem;
 
@@ -99,7 +101,14 @@ public class ScannerService
 
     private static final String PROPERTY_SCANNER_URL = "identitystore-cnicertifier.scannerUrl";
 
+    private static final String MESSAGE_IMG_SIZE_TOO_SMALL= "module.identitystore.cnicertifier.message.imageSizeTooSmall";
+    private static final String MESSAGE_CHECK_FAILED = "module.identitystore.cnicertifier.message.checkFailed";
+    private static final String MESSAGE_SCAN_FAILED = "module.identitystore.cnicertifier.message.scanFailed";
+    private static final String MESSAGE_FILE_MISSING = "module.identitystore.cnicertifier.message.fileMissing";
+    private static final String MESSAGE_INVALID_FILE_TYPE = "module.identitystore.cnicertifier.message.invalidFileType";
+    
     private static ObjectMapper _mapper = new ObjectMapper( );
+    private static ScannerResponseStatusValidator _validator = new ScannerResponseStatusValidator();
 
     /**
      * Scan the CNI
@@ -112,11 +121,11 @@ public class ScannerService
      */
     public static CNI scan( Map<String, FileItem> mapFileItems ) throws ScannerException, HttpAccessException
     {
-        CNI cni = null;
-        HttpAccess client = new HttpAccess( );
+        HttpAccess client = new HttpAccess( _validator );
+        
         String strURL = AppPropertiesService.getProperty( PROPERTY_SCANNER_URL );
         String strResponse = client.doPostMultiPart( strURL, null, mapFileItems );
-        cni = parse( strResponse );
+        CNI cni = parse( strResponse );
         return cni;
     }
 
@@ -137,14 +146,84 @@ public class ScannerService
         {
             JsonNode nodeRoot = _mapper.readTree( strJSON );
             JsonNode nodeData = nodeRoot.get( "data" );
-            String strDataJSON = nodeData.toString( );
-            ScanOutput scan = _mapper.readValue( strDataJSON, ScanOutput.class );
-            cni = new CNI( scan );
+            
+            if( nodeData != null )
+            {
+                String strDataJSON = nodeData.toString( );
+                ScanOutput scan = _mapper.readValue( strDataJSON, ScanOutput.class );
+                cni = new CNI( scan );
+            }
+            else
+            {
+                String strCode = getField( nodeRoot , "code" );
+                String strException = getField( nodeRoot , "exception" );
+                String strMessage = getField( nodeRoot , "message" );
+                String strUserMessage = handleError( strCode );
+                throw new ScannerException( strMessage , strCode , strException , strUserMessage );
+            }
         }
         catch( IOException ex )
         {
             throw new ScannerException( ex.getMessage( ) );
         }
         return cni;
+    }
+
+    /**
+     * Handle an error code to produce an user message
+     * @param strCode The error code
+     * @return The user message
+     */
+    private static String handleError( String strCode )
+    {
+        if( ERROR_IMG_SIZE_TOO_SMALL.equals( strCode ))
+        {
+            return I18nService.getLocalizedString( MESSAGE_IMG_SIZE_TOO_SMALL, Locale.FRENCH );
+        }
+        if(     ERROR_INCONSISTENT_OCR_MRZ.equals( strCode) || 
+                ERROR_INVALID_BIRTHDATE_CHECKSUM.equals( strCode ) ||
+                ERROR_INVALID_EMIT_CHECKSUM.equals( strCode ) ||
+                ERROR_INVALID_GLOBAL_CHECKSUM.equals( strCode ) ||
+                ERROR_INVALID_MRZ_ID.equals( strCode ) ||
+                ERROR_INVALID_MRZ_LINES_COUNT.equals( strCode ) ||
+                ERROR_INVALID_MRZ_SEX.equals( strCode ))
+        {
+            return I18nService.getLocalizedString( MESSAGE_CHECK_FAILED, Locale.FRENCH );
+        }    
+        
+        if( ERROR_MRZ_EXTRACTION_FAILED.equals( strCode ) ||
+                ERROR_DOCUMENT_EXTRACTION_FAILED.equals( strCode ) ||
+                ERROR_MRZ_EXTRACTION_FAILED.equals( strCode ) ||
+                ERROR_IMAGE_IMPROVEMENT_FAILED.equals( strCode ) ||
+                ERROR_INVALID_LINE0_LENGTH.equals( strCode ) ||
+                ERROR_INVALID_LINE1_LENGTH.equals( strCode ) ||
+                ERROR_ZONES_LOCATION_FAILED.equals( strCode ))
+        {
+            return I18nService.getLocalizedString( MESSAGE_SCAN_FAILED, Locale.FRENCH );
+        }
+        
+        if( ERROR_INVALID_FILE_TYPE.equals( strCode ) )
+        {
+            return I18nService.getLocalizedString( MESSAGE_INVALID_FILE_TYPE, Locale.FRENCH );
+        }
+        
+        if( ERROR_MISSING_IMAGE_FILE.equals( strCode ))
+        {
+            return I18nService.getLocalizedString( MESSAGE_FILE_MISSING, Locale.FRENCH );
+        }
+        
+        return I18nService.getLocalizedString( MESSAGE_SCAN_FAILED, Locale.FRENCH );
+    }
+
+    /**
+     * Gets field content avoiding null values for missing fields
+     * @param nodeRoot The root
+     * @param strField The field name
+     * @return The field content
+     */
+    private static String getField( JsonNode nodeRoot, String strField  )
+    {
+        JsonNode node = nodeRoot.get( strField );
+        return ( node != null ) ? node.asText() : "";
     }
 }

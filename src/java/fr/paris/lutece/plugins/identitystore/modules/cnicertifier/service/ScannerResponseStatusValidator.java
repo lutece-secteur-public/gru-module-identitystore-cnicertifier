@@ -32,66 +32,24 @@
  * License 1.0
  */
 
+
 package fr.paris.lutece.plugins.identitystore.modules.cnicertifier.service;
 
+import fr.paris.lutece.util.httpaccess.ResponseStatusValidator;
+
 /**
- * ScannerException
+ * ScannerResponseStatusValidator
  */
-public class ScannerException extends Exception
+public class ScannerResponseStatusValidator implements ResponseStatusValidator
 {
-    private String _strCode;
-    private String _strException;
-    private String _strUserMessage;
-    
+
     /**
-     * Constructor
-     * @param strMessage The message
+     * {@inheritDoc }
      */
-    public ScannerException( String strMessage )
+    @Override
+    public boolean validate( int nStatus )
     {
-        super( strMessage );
+        return ( nStatus == 200) || ( nStatus == 400) || ( nStatus == 422) || ( nStatus == 500);
     }
-    
-    /**
-     * Constructor
-     * @param strMessage The message
-     * @param strCode The code
-     * @param strException The exception message
-     * @param strUserMessage The user message
-     */
-    public ScannerException( String strMessage , String strCode , String strException , String strUserMessage )
-    {
-        super( strMessage );
-        _strCode = strCode;
-        _strException = strException;
-        _strUserMessage = strUserMessage;
-    }
-    
-    /**
-     * Returns the error code
-     * @return The error code
-     */
-    public String getCode()
-    {
-        return _strCode;
-    }
-    
-    /**
-     * returns the exception
-     * @return The exception
-     */
-    public String getException()
-    {
-        return _strException;
-    }
-    
-    /**
-     * returns the exception
-     * @return The exception
-     */
-    public String getUserMessage()
-    {
-        return _strUserMessage;
-    }
-    
+
 }
